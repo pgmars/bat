@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+
+                // Embedding a shell script
+                script {
+                    if (isUnix()) {
+                        sh '''
+                            #!/bin/bash
+                            echo "This is a shell script"
+                            echo "You can execute any shell commands here"
+                            # Add your shell commands here
+                        '''
+                    } else {
+                        bat '''
+                            @echo off
+                            echo This is a Windows batch script
+                            echo You can execute any batch commands here
+                            REM Add your batch commands here
+                        '''
+                    }
+                }
+            }
+        }
+    }
+}
